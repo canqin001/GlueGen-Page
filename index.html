@@ -3,10 +3,10 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="Good DA in KD">
-  <meta name="keywords" content="Knowledge Distillation, Data Augmentation">
+  <meta name="description" content="GlueGen">
+  <meta name="keywords" content="Image Generation, Multi-modal">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>What Makes a "Good" Data Augmentation in Knowledge Distillation -- A Statistical Perspective</title>
+  <title>GlueGen: Plug and Play Multi-modal Encoders for X-to-image Generation</title>
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
 
   <link rel="stylesheet" href="./static/css/bulma.min.css">
@@ -35,7 +35,7 @@
     </div>
     <div class="navbar-menu">
       <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-        <a class="navbar-item" href="https://github.com/MingSun-Tse/Good-DA-in-KD">
+        <a class="navbar-item" href="https://github.com/salesforce/GlueGen">
           <span class="icon">
             <i class="fas fa-home"></i>
           </span>
@@ -52,37 +52,58 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">What Makes a "Good" Data Augmentation in Knowledge Distillation -- A Statistical Perspective</h1>
+            <h1 class="title is-1 publication-title">GlueGen: Plug and Play Multi-modal Encoders for X-to-image Generation</h1>
             <div class="is-size-5 publication-authors">
               <span class="author-block">
-                <a href="http://huanwang.tech">Huan Wang</a><sup>1,2,&dagger;</sup>&#8192;
+               Can Qin</a><sup>1,&dagger;</sup>&#8192;
               </span>
               <span class="author-block">
-                <a href="https://suhaslohit.github.io/">Suhas Lohit</a><sup>2,&ast;</sup>&#8192;
+               Ning Yu</a><sup>2</sup>&#8192;
               </span>
               <span class="author-block">
-                <a href="https://www.merl.com/people/mjones">Mike Jones</a><sup>2</sup>&#8192;
+               Chen Xing</a><sup>2</sup>&#8192;
               </span>
               <span class="author-block">
-                <a href="http://www1.ece.neu.edu/~yunfu/">Yun Fu</a><sup>1</sup>
+               Shu Zhang</a><sup>2</sup>&#8192;
+              </span>
+              <span class="author-block">
+               Zeyuan Chen</a><sup>2</sup>&#8192;
               </span>
             </div>
-            <h1 style="font-size:23px;font-weight:bold">NeurIPS 2022</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+               Stefano Ermon</a><sup>3</sup>&#8192;
+              </span>
+              <span class="author-block">
+               Yun Fu</a><sup>1</sup>
+              </span>
+              <span class="author-block">
+                Caiming Xiong</a><sup>2</sup>&#8192;
+              </span>
+              <span class="author-block">
+                Ran Xu</a><sup>2</sup>&#8192;
+              </span>
+            </div>
 
             <div class="is-size-5 publication-authors">
               <span><sup>1</sup>Northeastern University, Boston, MA&#8192;</span>
-              <span><sup>2</sup>MERL, Cambridge, MA</span>
+            </div>
+            <div class="is-size-5 publication-authors">
+              <span><sup>2</sup>Salesforce AI Research, Palo Alto, CA</span>
+            </div>
+            <div class="is-size-5 publication-authors">
+              <span><sup>3</sup>Stanford University, Palo Alto, CA</span>
             </div>
 
             <div style="font-size:15px">
-              <span><sup>&dagger;</sup>Work done when Huan was an intern at MERL&#8192;<sup>&ast;</sup>Corresponding author: slohit@merl.com</span></br>
+              <span><sup>&dagger;</sup>Work done when Can Qin was an intern at Salesforce AI Research, Primary Contact: qin.ca@northeastern.edu&#8192;</span></br>
             </div>
 
             <div class="column has-text-centered">
               <div class="publication-links">
                 <!-- PDF Link. -->
                 <span class="link-block">
-                  <a href="https://arxiv.org/pdf/2012.02909.pdf"
+                  <a href="https://arxiv.org/pdf/2303.10056.pdf"
                     class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <i class="fas fa-file-pdf"></i>
@@ -91,7 +112,7 @@
                   </a>
                 </span>
                 <span class="link-block">
-                  <a href="https://arxiv.org/abs/2012.02909" class="external-link button is-normal is-rounded is-dark">
+                  <a href="https://arxiv.org/pdf/2303.10056" class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <i class="ai ai-arxiv"></i>
                     </span>
@@ -100,7 +121,7 @@
                 </span>
                 <!-- Code Link. -->
                 <span class="link-block">
-                  <a href="https://github.com/MingSun-Tse/Good-DA-in-KD"
+                  <a href="https://github.com/salesforce/GlueGen"
                     class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <i class="fab fa-github"></i>
@@ -121,15 +142,10 @@
     <div class="container is-max-desktop">
       <div class="hero-body">
         <div align='center'>
-          <a><img src="figs/frontpage_overview.svg"  height="200" ></a>
-          <a><img src="figs/wrn_40_2_wrn_16_2_cifar100.svg"  height="200" ></a>
+          <a><img src="figs/fig_demo_results.svg"  width="750" ></a>
         </div>
         <div class="content has-text-justified">
-          We present a proven proposition to precisely answer <i>"What makes a good data augmentation (DA) in knowledge distillation (KD)?"</i>: A good DA should reduce the covariance of the teacher-student cross-entropy.
-          We present a practical metric that only needs the teacher to measure the goodness of a DA in KD: the <b>stddev of teacher’s mean probability</b> (shorted as <b>T. stddev</b>).
-          <mark>Interestingly, T. stddev poses a <u>strong positive correlation</u> (note the p-values are far below <a href="https://www.wikiwand.com/en/Statistical_significance">5%</a>) with student’s test loss (S. test loss) on CIFAR100 and Tiny ImageNet (see the right figure above), despite knowing <u>nothing</u> about the student, implying the goodness of a DA in KD is probably student-invariant.</mark>
-          Based on the theory, we further propose an entropy-based data picking algorithm that can further boost prior SOTA DA scheme (CutMix) in KD, resulting in a new strong DA method, <b>CutMixPick</b>.
-          Finally, we show how the theory can be utilized in practice to harvest considerable performance gains simply by using a stronger DA with prolonged training epochs.
+          The proposed GlueNet is trying to provide an adaptable portal for the Stable Diffusion model to input multi-modal data, such as text, audio, (a) and (b), or text-audio hybrid signals, (c), for X-to-image generation.
         </div>
       </div>
     </div>
@@ -142,8 +158,21 @@
         <div class="column is-four-fifths">
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
-            Knowledge distillation (KD) is a general neural network training approach that uses a teacher to guide a student. Existing works mainly study KD from the network output side (e.g., trying to design a better KD loss function), while few have attempted to understand it from the input side. Especially, its interplay with data augmentation (DA) has not been well understood. In this paper, we ask: Why do some DA schemes (e.g., CutMix) inherently perform much better than others in KD? What makes a “good” DA in KD? Our investigation from a statistical perspective suggests that a good DA scheme should reduce the variance of the teacher’s mean probability, which will eventually lead to a lower generalization gap for the student. Besides the theoretical understanding, we also introduce a new entropy-based data-mixing DA scheme to enhance CutMix. Extensive empirical studies support our claims and demonstrate how we can harvest considerable performance gains simply by using a better DA scheme in knowledge distillation.
+            Text-to-image (T2I) models based on diffusion processes have achieved remarkable success in controllable image generation using user-provided captions. However, the tight coupling between the current text encoder and image decoder in T2I models makes it challenging to replace or upgrade. Such changes often require massive fine-tuning or even training from scratch with the prohibitive expense. To address this problem, we propose GlueGen, which applies a newly proposed GlueNet model to align features from single-modal or multi-modal encoders with the latent space of an existing T2I model. The approach introduces a new training objective that leverages parallel corpora to align the representation spaces of different encoders. Empirical results show that GlueNet can be trained efficiently and enables various capabilities beyond previous state-of-the-art models: 1) multilingual language models such as XLM-Roberta can be aligned with existing T2I models, allowing for the generation of high-quality images from captions beyond English; 2) GlueNet can align multi-modal encoders such as AudioCLIP with the Stable Diffusion model, enabling sound-to-image generation; 3) it can also upgrade the current text encoder of the latent diffusion model for challenging case generation. By the alignment of various feature representations, the GlueNet allows for flexible and efficient integration of new functionality into existing T2I models and sheds light on X-to-image (X2I) generation.
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <div align='center'>
+          <a><img src="figs/framework_new_iccv.svg"  width="850" ></a>
+        </div>
+        <div class="content has-text-justified">
+          With the proposed GlueNet model of the GlueGen framework, the pre-trained image generator (i.e., UNet) can be bridged to off-the-shelf single- or multi-modal encoders to expand their functionalities, i.e., multilingual/sound-to-image generation, within a limited budget. GlueNet is trained offline and does not require back-propagation of UNet and image-text pairs for training. Therefore, GlueGen is flexible and efficient to achieve.
         </div>
       </div>
     </div>
@@ -156,42 +185,31 @@
         <div class="column is-full-width">
 
           <!-- NeRF results: Blender -->
-          <h2 class="title is-3" align='center'>Correlation Results on CIFAR100 & Tiny ImageNet</h2>
+          <h2 class="title is-3" align='center'>Sound and Sound/text-to-image Generation <br>  (AudioCLIP + GlueNet + Stable Diffusion)</h2>
 
           <p align="center">
-            <a><img src="figs/wrn_40_2_wrn_16_2_cifar100.svg"  height="200" ></a>
-            <a><img src="figs/resnet56_resnet20_cifar100.svg"  height="200" ></a>
-            </br>
-            <a><img src="figs/vgg13_vgg8_cifar100.svg"  height="200" ></a>
-            <a><img src="figs/ResNet50_vgg8_cifar100.svg"  height="200" ></a>
-            </br>
-            <a><img src="figs/wrn_40_2_wrn_16_2_tinyimagenet.svg"  height="200" ></a>
-            <a><img src="figs/resnet56_resnet20_tinyimagenet.svg"  height="200" ></a>
-            </br>
-            <a><img src="figs/vgg13_vgg8_tinyimagenet.svg"  height="200" ></a>
-            <a><img src="figs/ResNet50_vgg8_tinyimagenet.svg"  height="200" ></a>
-            </br>
+            <a><img src="figs/fig_sound_results_1.svg" width="750" ></a>
           </p>
+          Beyond the text signals, the proposed GlueNet also achieves sound-to-image generation, i.e., (a) and (b), and image generation via sound-text-mix signals, i.e., (c), by aligning the CLIP text encoder with AudioCLIP audio encoders. 
+        </div>
+      </div>
+    </div>
+  </section>
 
-          <h2 class="title is-3" align='center'>Correlation Results on ImageNet100</h2>
-          ImageNet100 is a 100-class subset randomly drawn from the full ImageNet-1K dataset. The correlation turns weaker (compared to CIFAR100 and Tiny ImageNet) generally speaking, due to the fact that ImageNet100 is essentially more challenging than CIFAR100 and Tiny ImageNet. But still, suggested by the p-values, the correlation is fairly strong. This means the effectiveness of our metric can generalize to the standard 224x224 RGB images.
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+
+          <!-- NeRF results: Blender -->
+          <h2 class="title is-3" align='center'> Monolingual Text-to-image Generation <br> (T5-3B + GlueNet + Latent Diffusion)</h2>
 
           <p align="center">
-            <a><img src="figs/resnet34_resnet18_imagenet100.svg"  height="200" ></a>
+            <a><img src="figs/Db_wn_demo_filtered.svg" width="750" ></a>
           </p>
+          Monolingual text-to-image generation in resolution 256 $\times$ 256 with guidance weight 7.5 and DDIM steps 200.
 
-          <h2 class="title is-3" align='center'>Correlation Results on ImageNet</h2>
-          The results on ImageNet are not very much aligned with our expectation, as the correlation between S. test loss and T. stddev below is not statistically significant. We don't know why for now (presumbly think it might be related to the number of classes of the dataset). We consider this as a limitation of this work and shall explore it in the future version.
-          <p align="center">
-            <a><img src="figs/resnet34_resnet18_imagenet.svg"  height="200" ></a>
-          </p>
-
-          <h2 class="title is-3" align='center'>Boosting KD via Stronger KD + More Epochs </br>(CIFAR100 and Tiny ImageNet)</h2>
-          As shown below, compared to the original KD results, we can harvest considerable performance gains simply by using a stronger DA (CutMix and our proposed CutMixPick) with more training epochs.
-          <br /> <br />
-          <p align="center">
-            <a><img src="figs/boosting_kd.svg"  width="700" ></a>
-          </p>
         </div>
       </div>
     </div>
@@ -201,15 +219,40 @@
 
 
 
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+        
+          <h2 class="title is-3" align='center'>Multilingual Text-to-image Generation <br> (XLM-Roberta-L + GlueNet + Stable Diffusion)</h2>
+          <br /> 
+          <p align="center">
+            <a><img src="figs/multi_garden.svg"  width="850" ></a>
+          </p>
+          Multilingual generation results in resolution 512 * 512  of XLM-Roberta + Glue-Net + SDM decoder (sd-v1-4) with the same caption, ``afternoon garden oil painting painted by impressionists". With the help of different Glue-Nets and multilingual text encoder, the SDM decoder can support different languages including Japanese, Italian, Chinese, French and Spanish. The guidance weight is assigned as 7.5 and PLMS sampling steps are 50.
+
+          <br /> <br /> 
+          <p align="center">
+            <a><img src="figs/Hybrid-languages.svg"  width="850" ></a>
+          </p>
+          Hybrid multilingual generation in resolution of 512 * 512. There are three-different-language texts in the input caption including  Chinese, Japanese and English. The caption of (a) is ``colorful, a cat painted by Picasso, sit on a table, is eating food'' and the caption of (b) is ``a white, sedan, crash into a building''. With our GlueNet infused ahead, the XLM-Roberta can guide SDM decoder to generate reasonable results where the original SDM fails to work.
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
   <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
       <h2 class="title">BibTeX</h2>
-      <pre><code>@inproceedings{wang2022what,
-    author = {Huan Wang and Suhas Lohit and Mike Jones and Yun Fu},
-    title = {What Makes a "Good" Data Augmentation in Knowledge Distillation -- A Statistical Perspective},
-    booktitle = {NeurIPS},
-    year = {2022},
-}</code></pre>
+      <pre><code>@article{qin2023gluegen,
+        title={GlueGen: Plug and Play Multi-modal Encoders for X-to-image Generation},
+        author={Qin, Can and Yu, Ning and Xing, Chen and Zhang, Shu and Chen, Zeyuan and Ermon, Stefano and Fu, Yun and Xiong, Caiming and Xu, Ran},
+        journal={arXiv preprint arXiv:2303.10056},
+        year={2023}
+      }</code></pre>
     </div>
   </section>
 
